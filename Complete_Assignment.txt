@@ -1,0 +1,115 @@
+mysql> show databases;
+
+mysql> create database Bidvestbank;
+
+mysql> use bidvestbank;
+
+mysql> create table BankBranchs (branch_name varchar(50) not null primary key, branch_city varchar(20), assets double);
+mysql> create table Customer (customer_name varchar(20) not null primary key, customer_street varchar(20),customer_city varchar(50));
+mysql> create table CustomerAccount (acc_num varchar(6) not null primary key, branch_name varchar(50), balance double);
+mysql> create table Loan (loan_num varchar(6) not null primary key, branch_name varchar(20), amount double);
+mysql> create table Depositor (customer_name varchar(20) not null primary key, acc_num varchar(6), FOREIGN KEY (acc_num) REFERENCES CustomerAccount(acc_num));
+mysql> create table Borrower (customer_name varchar(20) not null primary key, loan_num varchar(6), FOREIGN KEY (loan_num) REFERENCES Loan(loan_num));
+mysql> create table Employee (employee_name varchar(20) not null primary key, employee_branch varchar(6), salary double);
+
+mysql> insert into CustomerAccount values ('A-5324', 'Newtown', 500);
+mysql> insert into CustomerAccount values ('A-5624', 'Sunnyside', 400);
+mysql> insert into CustomerAccount values ('A-7794', 'Midrand', 900);
+mysql> insert into CustomerAccount values ('A-4467', 'Mabopane', 700);
+mysql> insert into CustomerAccount values ('A-3546', 'Midrand', 750);
+mysql> insert into CustomerAccount values ('A-3453', 'Universitas', 700);
+mysql> insert into CustomerAccount values ('A-2542', 'Mamelodi', 350);
+
+mysql> insert into BankBranchs values ('Midrand', 'Johannesburg', 7100000);
+mysql> insert into BankBranchs values ('Newtown', 'Johannesburg', 9000000);
+mysql> insert into BankBranchs values ('Mabopane', 'Pretoria', 400000);
+mysql> insert into BankBranchs values ('Belgravia', 'Kimberly', 3700000);
+mysql> insert into BankBranchs values ('Sunnyside', 'Pretoria', 1700000);
+mysql> insert into BankBranchs values ('Amanzimtoti', 'Durban', 300000);
+mysql> insert into BankBranchs values ('Universitas', 'Bloemfontein', 2100000);
+mysql> insert into BankBranchs values ('Mamelodi', 'Pretoria', 8000000);
+
+mysql> insert into Customer values ('Modise', 'Spring', 'George');
+mysql> insert into Customer values ('Brooks', 'Senator', 'Johannesburg');
+mysql> insert into Customer values ('Jooste', 'North', 'kimberly');
+mysql> insert into Customer values ('Lombard', 'Sand Hill', 'Nelspruit');
+mysql> insert into Customer values ('Mokwena', 'Walnut', 'Port-Elizabeth');
+mysql> insert into Customer values ('Johnson', 'mmabatho', 'Mafikeng');
+mysql> insert into Customer values ('Johnson', 'Alma', 'Bloemfontein');
+mysql> insert into Customer values ('Zwane', 'Main', 'Mafikeng');
+mysql> insert into Customer values ('Lindsay', 'Park', 'George');
+mysql> insert into Customer values ('Smith', 'North', 'Kimberly');
+mysql> insert into Customer values ('Dlamini', 'Putnam', 'Port-Elizabeth');
+mysql> insert into Customer values ('Williams', 'Nassau', 'Giyane');
+
+
+mysql> insert into Depositor values ('Johnson', 'A-5624');
+mysql> insert into Depositor values ('Johnson', 'A-5624');
+mysql> insert into Depositor values ('Johnson', 'A-7794');
+mysql> insert into Depositor values ('Zwane', 'A-3546');
+mysql> insert into Depositor values ('Lindsay', 'A-3453');
+mysql> insert into Depositor values ('Smith', 'A-4467');
+mysql> insert into Depositor values ('Dlamini', 'A-2542');
+
+mysql> insert into Loan values ('L-11', 'Mamelodi', 900);
+mysql> insert into Loan values ('L-14', 'Newtown', 1500);
+mysql> insert into Loan values ('L-15', 'Sunnyside', 1500);
+mysql> insert into Loan values ('L-16', 'Sunnyside', 1300);
+mysql> insert into Loan values ('L-17', 'Newtown', 1000);
+mysql> insert into Loan values ('L-23', 'Univertas', 2000);
+mysql> insert into Loan values ('L-93', 'Mabopane', 500);
+
+mysql> insert into Borrower values ('Modise', 'L-16');
+mysql> insert into Borrower values ('Jooste', 'L-93');
+mysql> insert into Borrower values ('Johnson', 'L-15');
+mysql> insert into Borrower values ('Jackson', 'L-14');
+mysql> insert into Borrower values ('Zwane', 'L-17');
+mysql> insert into Borrower values ('Smith', 'L-11');
+mysql> insert into Borrower values ('Smith', 'L-23');
+mysql> insert into Borrower values ('Williams', 'L-17');
+
+mysql> insert into Employee values ('Modise', 'Sunnyside', 1500);
+mysql> insert into Employee values ('Brown', 'Sunnyside', 1300);
+mysql> insert into Employee values ('Gopal', 'Sunnyside', 5300);
+mysql> insert into Employee values ('Johnson', 'Newtown', 1500);
+mysql> insert into Employee values ('Loreena', 'Newtown', 1300);
+mysql> insert into Employee values ('Peterson', 'Newtown', 2500);
+mysql> insert into Employee values ('Rao', 'Austin', 1500);
+mysql> insert into Employee values ('sato', 'Austin', 1600);
+
+mysql> SELECT *
+    -> FROM CustomerAccount
+    -> WHERE balance < 700;
+
+
+mysql> SELECT customer_name
+    -> FROM Customer
+    -> WHERE customer_city = 'Johannesburg';
+
+mysql> SELECT *
+    -> FROM Employee
+    -> WHERE salary > 1500
+    -> AND employee_branch = 'Newtown';
+
+mysql> AVG(salary) AS "avg_salary"
+    -> FROM Employee;
+
+mysql> MAX(assets)
+    -> FROM BankBranchs;
+
+mysql> SELECT employee_name
+    -> FROM Employee
+    -> WHERE employee_branch = 'Sunnyside';
+
+mysql> SELECT * FROM Borrower;
+
+mysql> SELECT acc_num
+    -> FROM CustomerAccount
+    -> WHERE balance > 900;
+
+mysql> SELECT acc_num, balance
+    -> FROM CustomerAccount
+    -> WHERE salary > 600
+    -> AND branch_name = 'Newtown';
+
+mysql> SELECT branch_name, assets FROM BankBranchs;"# mysql-lab-1-vusimkhabela" 
